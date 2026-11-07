@@ -1,119 +1,1153 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio - Piska Roles</title>
-    <!-- External CSS -->
-    <link rel="stylesheet" href="style.css">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#05080d">
+
+  <title>Piska Roles | Cyber Developer</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --green: #00ff9c;
+      --cyan: #00d9ff;
+      --red: #ff3864;
+      --bg: #05080d;
+      --panel: #0b111a;
+      --panel2: #0e1722;
+      --text: #d5e7e0;
+      --muted: #849a94;
+      --border: rgba(0,255,156,.2);
+      --glow: 0 0 20px rgba(0,255,156,.12);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 85px;
+    }
+
+    body {
+      font-family: 'Fira Code', monospace;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding: 30px 15px;
+    }
+
+    /* MATRIX BACKGROUND */
+
+    #matrix {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      opacity: .16;
+      pointer-events: none;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(0,255,156,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,156,.025) 1px, transparent 1px);
+      background-size: 35px 35px;
+    }
+
+    a {
+      color: var(--green);
+      text-decoration: none;
+    }
+
+    /* MAIN CONTAINER */
+
+    .container {
+      width: 100%;
+      max-width: 1000px;
+      margin: auto;
+      background: rgba(8,14,22,.96);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 50px rgba(0,255,156,.07);
+      animation: fadeIn .9s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* TERMINAL BAR */
+
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      background: #080d14;
+      border-bottom: 1px solid var(--border);
+      gap: 10px;
+    }
+
+    .terminal-dots {
+      display: flex;
+      gap: 7px;
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+    }
+
+    .dot.red { background: #ff5f56; }
+    .dot.yellow { background: #ffbd2e; }
+    .dot.green { background: #27c93f; }
+
+    .terminal-title {
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    .terminal-status {
+      color: var(--green);
+      font-size: 10px;
+    }
+
+    .terminal-status::before {
+      content: "● ";
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: .3; }
+    }
+
+    /* HEADER */
+
+    header {
+      text-align: center;
+      padding: 55px 20px 40px;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(0,255,156,.12), transparent 55%),
+        linear-gradient(135deg, #07151b, #080d17);
+      border-bottom: 1px solid var(--border);
+    }
+
+    header::before {
+      content: "</>";
+      position: absolute;
+      font-family: 'Orbitron';
+      font-size: 220px;
+      font-weight: 800;
+      color: rgba(0,255,156,.035);
+      right: -15px;
+      bottom: -65px;
+      pointer-events: none;
+    }
+
+    .avatar-wrapper {
+      width: 150px;
+      height: 150px;
+      margin: auto auto 22px;
+      padding: 5px;
+      border: 2px solid var(--green);
+      border-radius: 18px;
+      box-shadow: 0 0 25px rgba(0,255,156,.25);
+      position: relative;
+      z-index: 1;
+      transition: .4s;
+    }
+
+    .avatar-wrapper:hover {
+      transform: scale(1.05) rotate(2deg);
+      box-shadow: 0 0 40px rgba(0,255,156,.5);
+    }
+
+    .avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      object-fit: cover;
+      object-position: center 30%;
+      display: block;
+      background: #101820;
+    }
+
+    .system-label {
+      color: var(--cyan);
+      font-size: 11px;
+      letter-spacing: 3px;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    header h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(25px, 5vw, 40px);
+      color: var(--green);
+      text-shadow: 0 0 20px rgba(0,255,156,.4);
+      letter-spacing: 2px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .subtitle {
+      color: var(--cyan);
+      font-size: 13px;
+      margin-top: 12px;
+      letter-spacing: 2px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cursor {
+      display: inline-block;
+      color: var(--green);
+      animation: blink 1s infinite;
+    }
+
+    .header-description {
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 18px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* NAVIGATION */
+
+    .navigation {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 15px;
+      background: #080e16;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .navigation a {
+      color: var(--muted);
+      font-size: 11px;
+      padding: 8px 13px;
+      border: 1px solid transparent;
+      border-radius: 5px;
+      transition: .3s;
+    }
+
+    .navigation a::before {
+      content: "./";
+      color: var(--green);
+    }
+
+    .navigation a:hover {
+      color: var(--green);
+      border-color: var(--border);
+      background: rgba(0,255,156,.06);
+    }
+
+    /* CONTENT */
+
+    .content {
+      padding: 35px;
+    }
+
+    section {
+      margin-bottom: 35px;
+      padding: 25px;
+      background: rgba(255,255,255,.015);
+      border: 1px solid rgba(0,255,156,.12);
+      border-radius: 8px;
+      transition: .3s;
+      animation: sectionIn .7s ease both;
+    }
+
+    section:hover {
+      border-color: rgba(0,255,156,.4);
+      box-shadow: var(--glow);
+      transform: translateY(-2px);
+    }
+
+    @keyframes sectionIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    section:nth-of-type(1) { animation-delay: .1s; }
+    section:nth-of-type(2) { animation-delay: .2s; }
+    section:nth-of-type(3) { animation-delay: .3s; }
+    section:nth-of-type(4) { animation-delay: .4s; }
+    section:nth-of-type(5) { animation-delay: .5s; }
+
+    /* SECTION TITLE */
+
+    h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 16px;
+      letter-spacing: 2px;
+      color: var(--green);
+      padding-bottom: 14px;
+      margin-bottom: 22px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2::before {
+      content: ">";
+      color: var(--cyan);
+      font-size: 22px;
+    }
+
+    h2::after {
+      content: "";
+      height: 1px;
+      flex: 1;
+      background: linear-gradient(90deg, var(--green), transparent);
+    }
+
+    /* PROFILE */
+
+    .info-item {
+      padding: 12px 15px;
+      margin-bottom: 10px;
+      background: rgba(0,255,156,.025);
+      border-left: 2px solid var(--green);
+      font-size: 13px;
+      line-height: 2;
+      transition: .3s;
+      overflow-wrap: anywhere;
+    }
+
+    .info-item:hover {
+      background: rgba(0,255,156,.07);
+      transform: translateX(4px);
+    }
+
+    .label {
+      display: inline-block;
+      min-width: 95px;
+      color: var(--cyan);
+      font-weight: 600;
+    }
+
+    .label::before {
+      content: "[";
+      color: var(--green);
+    }
+
+    .label::after {
+      content: "]";
+      color: var(--green);
+    }
+
+    /* EDUCATION */
+
+    .education {
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--cyan);
+      background: #080f18;
+      border-radius: 5px;
+    }
+
+    .education strong {
+      color: var(--green);
+      font-size: 17px;
+    }
+
+    .date-range {
+      display: inline-block;
+      color: var(--cyan);
+      font-size: 11px;
+      padding: 4px 12px;
+      border: 1px solid rgba(0,217,255,.25);
+      background: rgba(0,217,255,.06);
+      margin: 10px 0;
+      border-radius: 4px;
+    }
+
+    /* SKILLS */
+
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .skill {
+      display: inline-flex;
+      align-items: center;
+      padding: 9px 13px;
+      background: rgba(0,255,156,.04);
+      color: var(--green);
+      border: 1px solid rgba(0,255,156,.2);
+      border-radius: 5px;
+      font-size: 11px;
+      transition: .3s;
+    }
+
+    .skill::before {
+      content: "</> ";
+      color: var(--cyan);
+      margin-right: 5px;
+    }
+
+    .skill:hover {
+      background: rgba(0,255,156,.13);
+      border-color: var(--green);
+      box-shadow: 0 0 15px rgba(0,255,156,.15);
+      transform: translateY(-3px);
+    }
+
+    /* JOB EXPERIENCE */
+
+    .job-item {
+      padding: 22px;
+      margin-bottom: 20px;
+      background: #080f18;
+      border: 1px solid rgba(0,217,255,.15);
+      border-left: 3px solid var(--cyan);
+      border-radius: 6px;
+      transition: .3s;
+    }
+
+    .job-item:hover {
+      border-color: var(--green);
+      box-shadow: var(--glow);
+    }
+
+    .job-title {
+      display: block;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    .company-name {
+      display: block;
+      font-size: 12px;
+      color: var(--cyan);
+      margin-top: 5px;
+    }
+
+    .job-item ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 12px;
+    }
+
+    .job-item li {
+      font-size: 12px;
+      padding: 5px 0 5px 20px;
+      position: relative;
+      color: var(--text);
+    }
+
+    .job-item li::before {
+      content: ">";
+      color: var(--green);
+      position: absolute;
+      left: 0;
+    }
+
+    /* CONTACT */
+
+    #contact {
+      text-align: center;
+    }
+
+    #contact .info-item {
+      text-align: left;
+    }
+
+    #contact a:not(.btn) {
+      color: var(--green);
+      transition: .3s;
+    }
+
+    #contact a:not(.btn):hover {
+      color: var(--cyan);
+      text-shadow: 0 0 10px var(--cyan);
+    }
+
+    /* BUTTON */
+
+    .btn {
+      display: inline-block;
+      padding: 12px 22px;
+      margin: 12px 5px 0;
+      color: var(--green);
+      background: transparent;
+      border: 1px solid var(--green);
+      border-radius: 5px;
+      font-size: 12px;
+      font-weight: 600;
+      transition: .3s;
+    }
+
+    .btn::before {
+      content: "./ ";
+      color: var(--cyan);
+    }
+
+    .btn:hover {
+      background: var(--green);
+      color: #05080d;
+      box-shadow: 0 0 25px rgba(0,255,156,.4);
+      transform: translateY(-3px);
+    }
+
+    /* FOOTER */
+
+    footer {
+      text-align: center;
+      padding: 22px 15px;
+      background: #070c13;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    footer span {
+      color: var(--green);
+    }
+
+    .footer-status {
+      margin-bottom: 8px;
+      color: var(--green);
+    }
+
+    /* BACK TO TOP */
+
+    .top-button {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--green);
+      border-radius: 6px;
+      background: #08121a;
+      color: var(--green);
+      cursor: pointer;
+      font-size: 20px;
+      display: none;
+      z-index: 20;
+      box-shadow: var(--glow);
+    }
+
+    .top-button.show {
+      display: block;
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width: 650px) {
+      body {
+        padding: 10px 7px;
+      }
+
+      .container {
+        border-radius: 7px;
+      }
+
+      .content {
+        padding: 18px 12px;
+      }
+
+      header {
+        padding: 40px 15px 30px;
+      }
+
+      .avatar-wrapper {
+        width: 125px;
+        height: 125px;
+      }
+
+      .terminal-title {
+        font-size: 9px;
+      }
+
+      .terminal-status {
+        font-size: 9px;
+      }
+
+      .navigation {
+        gap: 3px;
+        padding: 10px 5px;
+      }
+
+      .navigation a {
+        padding: 7px;
+        font-size: 9px;
+      }
+
+      section {
+        padding: 17px 12px;
+        margin-bottom: 20px;
+      }
+
+      h2 {
+        font-size: 13px;
+      }
+
+      .info-item {
+        font-size: 11px;
+      }
+
+      .label {
+        min-width: 75px;
+      }
+
+      .job-item {
+        padding: 15px;
+      }
+
+      .job-item li {
+        font-size: 11px;
+      }
+
+      .skill {
+        font-size: 10px;
+      }
+    }
+
+    @media(prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-    <div class="container">
-<header>
-            <div class="decoration"></div>
-            <img src="profil.png" alt="Foto Profil" class="avatar">
-            <h1>Piska Roles</h1>
-            <p class="subtitle">Portofolio Pribadi</p>
-        </header>
+<canvas id="matrix"></canvas>
 
-        <div class="content">
-            
-            <!-- Section Profil -->
-            <section id="profil">
-                <h2>P R O F I L</h2>
-                <div class="info-item">
-                    <span class="label">Lahir</span>: 03 Maret 1992
-                </div>
-                <div class="info-item">
-                    <span class="label">Alamat</span>: 
-                    Mukai Tinggi, Kec. Siulak Mukai, Kerinci – Jambi, 37162
-                </div>
-            </section>
+<div class="container">
 
-            <!-- Section Pendidikan -->
-            <section id="pendidikan">
-                <h2>P E N D I D I K A N</h2>
-                <div class="info-item">
-                    <strong>Diploma 3</strong><br>
-                    Akademi Manajemen Informatika dan Komputer (AMIK)<br>
-                    Depati Parbo Kerinci<br>
-                    <span style="color: #7f8c8d; font-size: 0.9rem;">2010 - 2013</span>
-                </div>
-            </section>
-
-            <!-- Section Kemampuan -->
-            <section id="kemampuan">
-                <h2>K E M A M P U A N</h2>
-                <ul>
-                    <li>Microsoft Office ( Word, Excel, Power Point dll)</li>
-                    <li>Analisis dan Pengolahan Database</li>
-                    <li>Web Developer</li>
-                    <li>Software Developer</li>
-                    <li>Maintenance Software dan Hardware</li>
-                    <li>Bekerja secara tim maupun individu</li>
-                </ul>
-            </section>
-
-            <!-- Section Pengalaman Kerja -->
-            <section id="pengalaman">
-                <h2>P E N G A L A M A N  K E R J A</h2>
-                
-                <!-- Pekerjaan 1 -->
-                <div class="job-item">
-                    <span class="job-title">PT Gunung Kerinci</span>
-                    <span class="company-name">Admin Keuangan</span>
-                    <span class="date-range">2014 – 2019</span>
-                    <ul>
-                        <li>Mengelola administrasi harian bulanan, dan tahunan termasuk pencatatan transaksi, pengelolaan inventaris secara keseluruhan.</li>
-                        <li>Membuat pelaporan operasional harian, bulanan dan tahunan perusahaan.</li>
-                        <li>Memastikan semua proses administrasi sesuai dengan prosedur yang berlaku.</li>
-                        <li>Berkontribusi dalam pengoptimalan operasional melalui manajemen data yang efisien.</li>
-                        <li>Menjaga keseimbangan antara kas perusahaan dan stok barang, sehingga tidak terjadi penumpukan dan kehabisan stok barang.</li>
-                    </ul>
-                </div>
-                <br>
-                <!-- Pekerjaan 2 -->
-                <div class="job-item">
-                    <span class="job-title">CV Telaga Jernih</span>
-                    <span class="company-name">Admin Keuangan dan Pemasaran</span>
-                    <span class="date-range">2019 – 2021</span>
-                    <ul>
-                        <li>Bertanggung jawab atas pengelolaan data administrasi dan pengarsipan dokumen.</li>
-                        <li>Membantu dalam proses pelaporan keuangan dan mendukung operasional perusahaan.</li>
-                        <li>Mengimplementasikan sistem pengarsipan yang terorganisir untuk meningkatkan efisiensi kerja.</li>
-                        <li>Membuat perencanaan dan penyaluran hasil produksi barang, termasuk belanja bahan baku produksi.</li>
-                        <li>Membukukan pemasukan dan pengeluaran perusahaan.</li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- Section Contact -->
-            <section id="contact">
-                <h2>C O N T A C T</h2>
-                <div class="info-item">
-                    <span class="label">Telepon</span>: <a href="tel:081371740005" style="color: #3498db; text-decoration: none;">0813-7174-0005</a>
-                </div>
-                <div class="info-item">
-                    <span class="label">Email</span>: <a href="mailto:piskaroles041@gmail.com" style="color: #3498db; text-decoration: none;">piskaroles041@gmail.com</a>
-                </div>
-                
-                <!-- Tombol Aksi -->
-                <a href="mailto:piskaroles041@gmail.com" class="btn">Hubungi Saya</a>
-            </section>
-
-        </div>
-
-        <footer>
-            &copy; 2023 Piska Roles. All Rights Reserved.
-        </footer>
+  <!-- TERMINAL BAR -->
+  <div class="terminal-bar">
+    <div class="terminal-dots">
+      <span class="dot red"></span>
+      <span class="dot yellow"></span>
+      <span class="dot green"></span>
     </div>
 
+    <div class="terminal-title">
+      piska@developer: ~/portfolio
+    </div>
+
+    <div class="terminal-status">ONLINE</div>
+  </div>
+
+  <!-- HEADER -->
+  <header>
+
+    <div class="system-label">
+      [ SYSTEM INITIALIZED // WELCOME ]
+    </div>
+
+    <div class="avatar-wrapper">
+      <img
+        src="https://drive.google.com/thumbnail?id=1CChuNjunCXdqR5HrLD5EMRhgSa3dvq9g&sz=w500"
+        alt="Foto Profil Piska Roles"
+        class="avatar"
+      >
+    </div>
+
+    <h1>PISKA ROLES</h1>
+
+    <p class="subtitle">
+      <span id="typing"></span><span class="cursor">_</span>
+    </p>
+
+    <p class="header-description">
+      Building Ideas Into Digital Solutions // Indonesia
+    </p>
+
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav class="navigation">
+    <a href="#profil">Profil</a>
+    <a href="#pendidikan">Pendidikan</a>
+    <a href="#kemampuan">Skills</a>
+    <a href="#pengalaman">Experience</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <!-- CONTENT -->
+  <main class="content">
+
+    <!-- PROFIL -->
+    <section id="profil">
+
+      <h2>PROFILE INFORMATION</h2>
+
+      <div class="info-item">
+        <span class="label">Nama</span>
+        : Piska Roles
+      </div>
+
+      <div class="info-item">
+        <span class="label">Lahir</span>
+        : 03 Maret 1992
+      </div>
+
+      <div class="info-item">
+        <span class="label">Alamat</span>
+        : Mukai Tinggi, Kec. Siulak Mukai,
+        Kerinci – Jambi, 37162
+      </div>
+
+    </section>
+
+    <!-- PENDIDIKAN -->
+    <section id="pendidikan">
+
+      <h2>EDUCATION</h2>
+
+      <div class="education">
+
+        <strong>Diploma 3</strong>
+
+        <p>
+          Akademi Manajemen Informatika dan Komputer
+          (AMIK) Depati Parbo Kerinci
+        </p>
+
+        <div class="date-range">
+          2010 – 2013
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- KEMAMPUAN -->
+    <section id="kemampuan">
+
+      <h2>TECHNICAL SKILLS</h2>
+
+      <div class="skills">
+
+        <span class="skill">Microsoft Office</span>
+        <span class="skill">Database Management</span>
+        <span class="skill">Hardware Maintenance</span>
+        <span class="skill">Software Maintenance</span>
+        <span class="skill">Web Developer</span>
+        <span class="skill">Software Developer</span>
+        <span class="skill">Administrasi</span>
+        <span class="skill">Pengolahan Data</span>
+        <span class="skill">Kerja Tim</span>
+        <span class="skill">Komunikasi</span>
+
+      </div>
+
+    </section>
+
+    <!-- PENGALAMAN -->
+    <section id="pengalaman">
+
+      <h2>WORK EXPERIENCE</h2>
+
+      <div class="job-item">
+
+        <span class="job-title">
+          PT Gunung Kerinci
+        </span>
+
+        <span class="company-name">
+          // Admin Keuangan
+        </span>
+
+        <span class="date-range">
+          2014 – 2019
+        </span>
+
+        <ul>
+          <li>
+            Mengelola administrasi harian, bulanan,
+            dan tahunan perusahaan.
+          </li>
+
+          <li>
+            Membuat laporan operasional harian,
+            bulanan, dan tahunan.
+          </li>
+
+          <li>
+            Memastikan proses administrasi sesuai
+            prosedur perusahaan.
+          </li>
+
+          <li>
+            Mengoptimalkan operasional melalui
+            manajemen data yang efisien.
+          </li>
+
+          <li>
+            Menjaga keseimbangan kas perusahaan
+            dan persediaan barang.
+          </li>
+        </ul>
+
+      </div>
+
+      <div class="job-item">
+
+        <span class="job-title">
+          CV Telaga Jernih
+        </span>
+
+        <span class="company-name">
+          // Admin Keuangan dan Pemasaran
+        </span>
+
+        <span class="date-range">
+          2019 – 2021
+        </span>
+
+        <ul>
+          <li>
+            Mengelola administrasi dan pengarsipan
+            dokumen perusahaan.
+          </li>
+
+          <li>
+            Membantu pelaporan keuangan dan
+            operasional perusahaan.
+          </li>
+
+          <li>
+            Menerapkan sistem pengarsipan
+            dokumen yang terorganisir.
+          </li>
+
+          <li>
+            Membuat perencanaan dan penyaluran
+            hasil produksi barang.
+          </li>
+
+          <li>
+            Mengelola pembukuan pemasukan
+            dan pengeluaran perusahaan.
+          </li>
+        </ul>
+
+      </div>
+
+    </section>
+
+    <!-- KONTAK -->
+    <section id="contact">
+
+      <h2>CONTACT INFORMATION</h2>
+
+      <div class="info-item">
+        <span class="label">Telepon</span> :
+        <a href="tel:081371740005">
+          0813-7174-0005
+        </a>
+      </div>
+
+      <div class="info-item">
+        <span class="label">Email</span> :
+        <a href="mailto:piskaroles041@gmail.com">
+          piskaroles041@gmail.com
+        </a>
+      </div>
+
+      <a
+        href="https://wa.me/6281371740005"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn"
+      >
+        WhatsApp
+      </a>
+
+      <a
+        href="mailto:piskaroles041@gmail.com"
+        class="btn"
+      >
+        Send Email
+      </a>
+
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+
+    <div class="footer-status">
+      ● SYSTEM STATUS: OPERATIONAL
+    </div>
+
+    <p>
+      &copy; 2026 <span>Piska Roles</span>.
+      All Rights Reserved.
+    </p>
+
+    <p>
+      Designed with &lt;code/&gt; and passion.
+    </p>
+
+  </footer>
+
+</div>
+
+<button
+  class="top-button"
+  id="topButton"
+  aria-label="Kembali ke atas"
+  title="Back to top"
+>
+  ↑
+</button>
+
+<script>
+  /* =====================================
+     TYPING EFFECT
+  ===================================== */
+
+  const typingElement = document.getElementById("typing");
+
+  const typingTexts = [
+    "WEB DEVELOPER",
+    "SOFTWARE DEVELOPER",
+    "TECHNOLOGY ENTHUSIAST",
+    "DIGITAL PROBLEM SOLVER"
+  ];
+
+  let textIndex = 0;
+  let charIndex = 0;
+  let deleting = false;
+
+  function typingEffect() {
+
+    const currentText = typingTexts[textIndex];
+
+    if (!deleting) {
+
+      typingElement.textContent =
+        currentText.substring(0, charIndex + 1);
+
+      charIndex++;
+
+      if (charIndex === currentText.length) {
+        deleting = true;
+        setTimeout(typingEffect, 1600);
+        return;
+      }
+
+    } else {
+
+      typingElement.textContent =
+        currentText.substring(0, charIndex - 1);
+
+      charIndex--;
+
+      if (charIndex === 0) {
+        deleting = false;
+        textIndex = (textIndex + 1) % typingTexts.length;
+      }
+
+    }
+
+    setTimeout(typingEffect, deleting ? 45 : 90);
+  }
+
+  typingEffect();
+
+
+  /* =====================================
+     MATRIX ANIMATION
+  ===================================== */
+
+  const canvas = document.getElementById("matrix");
+  const ctx = canvas.getContext("2d");
+
+  let columns = 0;
+  let drops = [];
+  let animationId;
+
+  const matrixChars =
+    "01アイウエオカキクケコサシスセソタチツテト";
+
+  const fontSize = 14;
+
+  function resizeMatrix() {
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    canvas.width = window.innerWidth * dpr;
+    canvas.height = window.innerHeight * dpr;
+
+    canvas.style.width = window.innerWidth + "px";
+    canvas.style.height = window.innerHeight + "px";
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    columns = Math.ceil(window.innerWidth / fontSize);
+
+    drops = Array.from(
+      { length: columns },
+      () => Math.random() * -100
+    );
+
+  }
+
+  function drawMatrix() {
+
+    ctx.fillStyle = "rgba(5, 8, 13, 0.08)";
+    ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+    ctx.fillStyle = "#00ff9c";
+    ctx.font = fontSize + "px monospace";
+
+    for (let i = 0; i < drops.length; i++) {
+
+      const char = matrixChars[
+        Math.floor(Math.random() * matrixChars.length)
+      ];
+
+      const x = i * fontSize;
+      const y = drops[i] * fontSize;
+
+      ctx.fillText(char, x, y);
+
+      if (
+        y > window.innerHeight &&
+        Math.random() > 0.975
+      ) {
+        drops[i] = 0;
+      }
+
+      drops[i] += 0.5;
+    }
+
+    animationId = requestAnimationFrame(drawMatrix);
+  }
+
+  resizeMatrix();
+  drawMatrix();
+
+  window.addEventListener("resize", resizeMatrix);
+
+
+  /* =====================================
+     BACK TO TOP
+  ===================================== */
+
+  const topButton = document.getElementById("topButton");
+
+  window.addEventListener("scroll", function() {
+
+    if (window.scrollY > 300) {
+      topButton.classList.add("show");
+    } else {
+      topButton.classList.remove("show");
+    }
+
+  });
+
+  topButton.addEventListener("click", function() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+
+
+  /* =====================================
+     NAVIGATION ACTIVE STATE
+  ===================================== */
+
+  const sections = document.querySelectorAll("main section");
+  const navLinks = document.querySelectorAll(".navigation a");
+
+  const observer = new IntersectionObserver(function(entries) {
+
+    entries.forEach(function(entry) {
+
+      if (entry.isIntersecting) {
+
+        navLinks.forEach(function(link) {
+          link.style.color = "";
+
+          if (
+            link.getAttribute("href") ===
+            "#" + entry.target.id
+          ) {
+            link.style.color = "#00ff9c";
+            link.style.borderColor =
+              "rgba(0,255,156,.3)";
+          } else {
+            link.style.borderColor = "transparent";
+          }
+        });
+
+      }
+
+    });
+
+  }, {
+    threshold: 0.25
+  });
+
+  sections.forEach(function(section) {
+    observer.observe(section);
+  });
+
+</script>
+
 </body>
-
 </html>
-
